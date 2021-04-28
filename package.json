@@ -1,0 +1,24 @@
+{
+  "name": "react-plough",
+  "version": "0.0.1",
+  "description": "tend your fields with react plough",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "plough",
+    "field",
+    "form"
+  ],
+  "author": "Nick Sinclair",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.4",
+    "react": "^17.0.2"
+  }
+}

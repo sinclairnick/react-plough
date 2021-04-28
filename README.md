@@ -1,0 +1,45 @@
+<h1 align="center">React Plough 👨‍🌾</h1>
+
+<p align="center">
+    <img src="https://img.shields.io/bundlephobia/min/react-plough?label=min">
+    <img src="https://img.shields.io/npm/l/react-plough">
+</p>
+
+> A library to help tend your react fields
+
+---
+
+```sh
+yarn add react-plough
+npm i react-plough
+```
+
+# Introduction
+
+`react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. The main goals of this project are to:
+
+💪 Provide a type-safe interface for using form fields
+
+🔌 Not require a bible worth of documentation to get running
+
+📚 Work (well) with many different input types
+
+🤷 Be input component-agnostic
+
+Ultimately, `react-plough` aims to **reduce user error** and **significantly minimize time spent** on forms
+
+## What this is not
+
+`react-plough` is not a form framework like `Formik`, it
+
+- does not lock you into using confusing components
+- does not require react `<Context/>`s
+- does not use strings to identify fields
+
+`react-plough` does not make strong assumptions about how you deal with your forms, or even if a form exists at all.
+
+### Motivation
+
+Having created many react projects, forms are always a nuisance. Even despite prevalent react form frameworks claiming they've aleviated such headaches, the headaches remain. Many are satisfied with existing packages -- and to them, congratulations -- however, for us who are not: this library is hopefully some pain relief.
+
+I wanted a library which could be used as much or as little as possible, without the backseat driving. As such, this project is merely a set of hooks and functions which reduce the boilerplate, and remove some of the (surprising) complexity found in forms. The rest is up to you.
