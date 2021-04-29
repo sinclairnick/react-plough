@@ -1,7 +1,6 @@
 <h1 align="center">React Plough 👨‍🌾</h1>
 
 <p align="center">
-    <img src="https://img.shields.io/bundlephobia/min/react-plough?label=min">
     <img src="https://img.shields.io/npm/l/react-plough">
 </p>
 
