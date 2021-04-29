@@ -19,7 +19,7 @@ npm i react-plough
 ```ts
 export const ProfileForm = () => {
   const [nameProps, name] = useTextField({
-      validate: (name) => name.value.length < 3
+      validate: (name) => name.value.length < 4
         ? "Name must be longer than 3 characters"
         : undefined,
         // Other options
@@ -42,13 +42,14 @@ export const ProfileForm = () => {
 
 `react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. The main goals of this project are to:
 
-💪 Provide a type-safe interface for using form fields
-
-🔌 Not require a bible worth of documentation to get running
-
-📚 Work (well) with many different input types
-
-🤷 Be input component-agnostic
+| Feature          | Description                                                |
+| ---------------- | ---------------------------------------------------------- |
+| 💪 Type Safe     | Provide a type-safe interface for using form fields        |
+| 🔌 Plug-and-play | Not require a bible worth of documentation to get running  |
+| 📚 General       | Work (well) with many different input types                |
+| 🪑 Simple        | Only use cost-free abstractions to avoid abstraction leaks |
+| 🤷 Agnostic      | Work with (nearly) any component library                   |
+| 🪶 Lightweight    | Be kind to your bundle size                                |
 
 Ultimately, `react-plough` aims to **reduce user error** and **significantly minimize time spent** on forms.
 
