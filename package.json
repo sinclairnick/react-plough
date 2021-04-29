@@ -7,7 +7,7 @@
     "prebuild": "rimraf dist",
     "predocs": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "typedoc src/index.ts --out docs",
+    "docs": "typedoc src/index.ts --out docs --theme minimal",
     "build": "tsc"
   },
   "keywords": [
