@@ -4,6 +4,7 @@
     "target": "es5",
     "outDir": "./dist",
     "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
