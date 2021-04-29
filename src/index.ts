@@ -1,3 +1,5 @@
+export * from "./base/base-field/types";
+export * from "./base/base-field-array/types";
 export * from "./base/base-field";
 export * from "./base/base-field-array";
 export * from "./binary/binary-field";
