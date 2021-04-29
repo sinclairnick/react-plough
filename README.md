@@ -13,6 +13,8 @@ yarn add react-plough
 npm i react-plough
 ```
 
+`react-plough` helps speed up react form development, by providing type-safe, simple and narrow utilities. Find out more below, or check out the [Docs](https://react-plough.vercel.app/)
+
 # Basic Example
 
 ```ts
@@ -39,16 +41,16 @@ export const ProfileForm = () => {
 
 # Introduction
 
-`react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. The main goals of this project are to:
+`react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. Some features are listed below.
 
-| Feature          | Description                                                |
-| ---------------- | ---------------------------------------------------------- |
-| 💪 Type Safe     | Provide a type-safe interface for using form fields        |
-| 🔌 Plug-and-play | Not require a bible worth of documentation to get running  |
-| 📚 General       | Work (well) with many different input types                |
-| 🪑 Simple        | Only use cost-free abstractions to avoid abstraction leaks |
-| 🤷 Agnostic      | Work with (nearly) any component library                   |
-| 🪶 Lightweight    | Be kind to your bundle size                                |
+| Feature          | Description                                                   |
+| ---------------- | ------------------------------------------------------------- |
+| 💪 Type Safe     | Provides a type-safe interface for using form fields          |
+| 🔌 Plug-and-play | Doesn't require a bible worth of documentation to get running |
+| 📚 General       | Works (well) with many different input types                  |
+| 🪑 Simple        | Keeps interfaces simple, only using cost-free abstractions    |
+| 🤷 Agnostic      | Works with (nearly) any component library                     |
+| 🪶 Lightweight    | Is kind to your bundle size                                   |
 
 Ultimately, `react-plough` aims to **reduce user error** and **significantly minimize time spent** on forms.
 
