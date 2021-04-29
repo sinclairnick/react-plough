@@ -14,6 +14,30 @@ yarn add react-plough
 npm i react-plough
 ```
 
+# Basic Example
+
+```ts
+export const ProfileForm = () => {
+  const [nameProps, name] = useTextField({
+      validate: (name) => name.value.length < 3
+        ? "Name must be longer than 3 characters"
+        : undefined,
+        // Other options
+  });
+
+  const handleSubmit = () => {
+    // async sendData(name.value)
+  }
+
+  return (
+    <div>
+      <input {...nameProps} />
+      <button onClick={handleSubmit}>
+    </div>
+  );
+};
+```
+
 # Introduction
 
 `react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. The main goals of this project are to:
@@ -26,15 +50,24 @@ npm i react-plough
 
 🤷 Be input component-agnostic
 
-Ultimately, `react-plough` aims to **reduce user error** and **significantly minimize time spent** on forms
+Ultimately, `react-plough` aims to **reduce user error** and **significantly minimize time spent** on forms.
+
+Currently, it supports:
+
+- Text fields
+- File fields
+- Binary fields (e.g. checkboxes)
+- Arrays of the above field types
+- Utilities to help manage a set of fields for submission
 
 ## What this is not
 
-`react-plough` is not a form framework like `Formik`, it
+`react-plough` is not a form framework like `Formik`, it does not
 
-- does not lock you into using confusing components
-- does not require react `<Context/>`s
-- does not use strings to identify fields
+- Lock you into using confusing components
+- Require react `<Context/>`s
+- Use strings to identify fields
+- Force form abstractions on you
 
 `react-plough` does not make strong assumptions about how you deal with your forms, or even if a form exists at all.
 
