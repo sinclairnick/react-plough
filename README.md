@@ -25,8 +25,8 @@ export const ProfileForm = () => {
         // Other options
   });
 
-  const handleSubmit = () => {
-    // async sendData(name.value)
+  const handleSubmit = async () => {
+    // await sendData(name.value)
   }
 
   return (
