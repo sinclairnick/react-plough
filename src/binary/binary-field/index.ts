@@ -1,13 +1,20 @@
 import { useBaseField } from "../../base/base-field";
 import {
+  FieldActions,
+  FieldMeta,
   FieldMetaWithoutError,
   FieldOptions,
+  FieldProps,
 } from "../../base/base-field/types";
 
 export function useBinaryField(
   options?: FieldOptions<boolean>,
   deps: any[] = []
-) {
+): [
+  FieldProps<boolean, HTMLInputElement>,
+  FieldMeta<boolean>,
+  FieldActions<boolean>
+] {
   const checkForErrors = async (meta: FieldMetaWithoutError<boolean>) => {
     const error = await options?.validate?.(meta);
     const requiredErrorMessage =

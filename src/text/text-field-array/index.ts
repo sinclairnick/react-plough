@@ -1,8 +1,14 @@
 import { useBaseFieldArray } from "../../base/base-field-array";
-import { FieldArrayOptions } from "../../base/base-field-array/types";
+import {
+  FieldArrayActions,
+  FieldArrayData,
+  FieldArrayOptions,
+} from "../../base/base-field-array/types";
 import { FieldMetaWithoutError } from "../../base/base-field/types";
 
-export function useTextFieldArray(options?: FieldArrayOptions<string>) {
+export function useTextFieldArray(
+  options?: FieldArrayOptions<string>
+): [FieldArrayData<string, HTMLInputElement>[], FieldArrayActions<string>] {
   const checkForErrors = async (
     itemMeta: FieldMetaWithoutError<string>,
     allMeta: FieldMetaWithoutError<string>[]

@@ -1,10 +1,20 @@
 import { useBaseField } from "../../base/base-field";
 import {
+  FieldActions,
+  FieldMeta,
   FieldMetaWithoutError,
   FieldOptions,
+  FieldProps,
 } from "../../base/base-field/types";
 
-export function useTextField(options?: FieldOptions<string>, deps: any[] = []) {
+export function useTextField(
+  options?: FieldOptions<string>,
+  deps: any[] = []
+): [
+  FieldProps<string, HTMLInputElement>,
+  FieldMeta<string>,
+  FieldActions<string>
+] {
   const checkForErrors = async (meta: FieldMetaWithoutError<string>) => {
     const error = await options?.validate?.(meta);
     const requiredErrorMessage =
