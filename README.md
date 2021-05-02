@@ -20,20 +20,17 @@ npm i react-plough
 ```ts
 export const ProfileForm = () => {
   const [nameProps, name] = useTextField({
-      validate: (name) => name.value.length < 4
+    validate: (name) =>
+      name.value.length < 4
         ? "Name must be longer than 3 characters"
         : undefined,
-        // Other options
+    // Other options
   });
-
-  const handleSubmit = async () => {
-    // await sendData(name.value)
-  }
 
   return (
     <div>
       <input {...nameProps} />
-      <button onClick={handleSubmit}>
+      <button onClick={() => alert(name.value)}>Submit</button>
     </div>
   );
 };
