@@ -46,7 +46,6 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
   };
 
   const onChange = async (e: ChangeEvent<E>, id: string) => {
-    const _wasTouched = true;
     const _value = extractValue(e.target);
 
     const index = state.findIndex((x) => x.id === id);
@@ -56,26 +55,41 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
       {
         ...meta,
         value: _value,
-        wasTouched: _wasTouched,
       },
       items.map((item) => item.meta)
     );
     dispatch({
       type: "UPDATE_ITEM",
       id,
-      updates: { error: _error, wasTouched: _wasTouched, value: _value },
+      updates: { error: _error, value: _value },
     });
   };
 
-  const onBlur = (id: string) => {
-    dispatch({ type: "UPDATE_ITEM", id, updates: { isFocussed: false } });
-  };
-
-  const onFocus = (id: string) => {
+  const onBlur = async (id: string) => {
+    const index = state.findIndex((x) => x.id === id);
+    const meta = items[index].meta;
+    const _error = await checkForErrors(
+      { ...meta, wasTouched: true, isFocussed: false },
+      items.map((item) => item.meta)
+    );
     dispatch({
       type: "UPDATE_ITEM",
       id,
-      updates: { isFocussed: true, wasTouched: true },
+      updates: { isFocussed: false, wasTouched: true, error: _error },
+    });
+  };
+
+  const onFocus = async (id: string) => {
+    const index = state.findIndex((x) => x.id === id);
+    const meta = items[index].meta;
+    const _error = await checkForErrors(
+      { ...meta, wasTouched: true, isFocussed: false },
+      items.map((item) => item.meta)
+    );
+    dispatch({
+      type: "UPDATE_ITEM",
+      id,
+      updates: { isFocussed: true, wasTouched: true, error: _error },
     });
   };
 

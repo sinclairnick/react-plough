@@ -34,14 +34,26 @@ export function useBaseField<T, E = HTMLInputElement>(
     setValue(_value);
   };
 
-  const onBlur = () => {
+  const onBlur = async () => {
+    const _error = await checkForErrors({
+      ...meta,
+      wasTouched: true,
+      isFocussed: false,
+    });
+    setError(_error);
+
     if (!wasTouched) {
       setWasTouched(true);
     }
     setIsFocussed(false);
   };
 
-  const onFocus = () => {
+  const onFocus = async () => {
+    const _error = await checkForErrors({
+      ...meta,
+      isFocussed: true,
+    });
+    setError(_error);
     setIsFocussed(true);
   };
 
