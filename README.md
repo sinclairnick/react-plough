@@ -13,7 +13,7 @@ yarn add react-plough
 npm i react-plough
 ```
 
-`react-plough` helps speed up react form development, by providing type-safe, simple and narrow utilities. Find out more below, or check out the [Docs](https://react-plough.vercel.app/)
+`react-plough` helps speed up react form development, by providing type-safe, simple and narrow utilities. More examples will be added soon, but in the mean time you can check out the [Docs](https://react-plough.vercel.app/)
 
 # Basic Example
 
@@ -38,7 +38,7 @@ export const ProfileForm = () => {
 
 # Introduction
 
-`react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. Some features are listed below.
+`react-plough` provides you with utilities to avoid repeating similar logic for form fields in react. Unlike most approaches to forms, fields are seen as the atomic units, not forms. Consequently, forms become a lot simpler and pleasant to use. Some features of `react-plough`:
 
 | Feature          | Description                                                   |
 | ---------------- | ------------------------------------------------------------- |
