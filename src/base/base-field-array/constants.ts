@@ -6,7 +6,6 @@ export const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
       return [
         ...state,
         {
-          id: generateId(),
           isFocussed: false,
           wasTouched: false,
           error: undefined,
@@ -14,21 +13,18 @@ export const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
         },
       ];
     case "REMOVE_ITEM":
-      return state.filter((val) => val.id !== action.id);
+      return state.filter((_, i) => i != action.index);
     case "UPDATE_ITEM": {
       const values = [...state];
-      const resetIndex = values.findIndex((x) => x.id === action.id);
-      values[resetIndex] = {
-        ...values[resetIndex],
+      values[action.index] = {
+        ...values[action.index],
         ...action.updates,
       };
       return values;
     }
     case "RESET": {
       const values = [...state];
-      const resetIndex = values.findIndex((x) => x.id === action.id);
-      values[resetIndex] = {
-        id: generateId(),
+      values[action.index] = {
         isFocussed: false,
         wasTouched: false,
         error: undefined,
@@ -38,7 +34,6 @@ export const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
     }
     case "RESET_ALL":
       return action.values.map((val) => ({
-        id: generateId(),
         isFocussed: false,
         wasTouched: false,
         error: undefined,
@@ -46,5 +41,3 @@ export const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
       }));
   }
 };
-
-export const generateId = () => `${Math.ceil(Math.random() * 1000000000)}`;

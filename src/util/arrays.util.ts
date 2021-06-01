@@ -1,6 +1,7 @@
 import {
   FieldArrayActions,
   FieldArrayData,
+  FieldArrayItemActions,
 } from "../base/base-field-array/types";
 
 export const squashArrayActions = <A extends FieldArrayActions<any>[]>(

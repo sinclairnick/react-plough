@@ -1,6 +1,5 @@
 import { ChangeEvent, Reducer, useMemo, useReducer } from "react";
 import { reducer } from "./constants";
-import { generateId } from "./constants";
 import {
   Action,
   BaseFieldArrayOptions,
@@ -22,7 +21,6 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
   const initialState: State<T> = useMemo(
     () =>
       (initialValues ?? []).map((val) => ({
-        id: generateId(),
         wasTouched: false,
         isFocussed: false,
         error: undefined,
@@ -41,14 +39,12 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
   const addItem = () => {
     dispatch({ type: "ADD_ITEM" });
   };
-  const removeItem = (id: string) => {
-    dispatch({ type: "REMOVE_ITEM", id });
+  const removeItem = (index: number) => {
+    dispatch({ type: "REMOVE_ITEM", index });
   };
 
-  const onChange = async (e: ChangeEvent<E>, id: string) => {
+  const onChange = async (e: ChangeEvent<E>, index: number) => {
     const _value = extractValue(e.target);
-
-    const index = state.findIndex((x) => x.id === id);
     const meta = items[index].meta;
 
     const _error = await checkForErrors(
@@ -60,13 +56,12 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     );
     dispatch({
       type: "UPDATE_ITEM",
-      id,
+      index,
       updates: { error: _error, value: _value },
     });
   };
 
-  const onBlur = async (id: string) => {
-    const index = state.findIndex((x) => x.id === id);
+  const onBlur = async (index: number) => {
     const meta = items[index].meta;
     const _error = await checkForErrors(
       { ...meta, wasTouched: true, isFocussed: false },
@@ -74,13 +69,12 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     );
     dispatch({
       type: "UPDATE_ITEM",
-      id,
+      index,
       updates: { isFocussed: false, wasTouched: true, error: _error },
     });
   };
 
-  const onFocus = async (id: string) => {
-    const index = state.findIndex((x) => x.id === id);
+  const onFocus = async (index: number) => {
     const meta = items[index].meta;
     const _error = await checkForErrors(
       { ...meta, wasTouched: true, isFocussed: false },
@@ -88,16 +82,16 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     );
     dispatch({
       type: "UPDATE_ITEM",
-      id,
+      index,
       updates: { isFocussed: true, wasTouched: true, error: _error },
     });
   };
 
-  const reset = (id: string, toValue?: T) => {
+  const reset = (index: number, toValue?: T) => {
     dispatch({
       type: "RESET",
-      id,
-      value: toValue ?? initialState.find((x) => x.id === id).value,
+      index,
+      value: toValue ?? initialState[index]?.value,
     });
   };
 
@@ -110,14 +104,14 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     addItem,
   };
 
-  const items: FieldArrayData<T, E>[] = state.map((item) => ({
+  const items: FieldArrayData<T, E>[] = state.map((item, i) => ({
     props: {
-      onBlur: () => onBlur(item.id),
-      onChange: (e: ChangeEvent<E>) => onChange(e, item.id),
-      onFocus: () => onFocus(item.id),
+      onBlur: () => onBlur(i),
+      onChange: (e: ChangeEvent<E>) => onChange(e, i),
+      onFocus: () => onFocus(i),
       value: item.value,
       required,
-      key: item.id, // Used solely to stop react warning for array keys
+      key: i, // Used solely to stop react warning for array keys
     },
     meta: {
       error: item.error,
@@ -125,13 +119,13 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
       value: item.value,
       isFocussed: item.isFocussed,
       hasError: item.error != null,
-      isDirty: initialState.find((x) => x.id === item.id)?.value !== item.value,
+      isDirty: initialState[i]?.value !== item.value,
       isEmpty: checkIfEmpty(item.value),
       isRequired: required,
     },
     actions: {
-      remove: () => removeItem(item.id),
-      reset: () => reset(item.id),
+      remove: () => removeItem(i),
+      reset: () => reset(i),
     },
   }));
   return [items, arrayActions];

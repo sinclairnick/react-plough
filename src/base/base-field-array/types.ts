@@ -27,7 +27,6 @@ export type FieldArrayActions<T> = {
 };
 
 export type State<T> = {
-  id: string;
   wasTouched: boolean;
   isFocussed: boolean;
   error?: string;
@@ -35,10 +34,10 @@ export type State<T> = {
 }[];
 
 export type Action<T> =
-  | { type: "REMOVE_ITEM"; id: string }
-  | { type: "UPDATE_ITEM"; id: string; updates: Partial<State<T>[0]> }
+  | { type: "REMOVE_ITEM"; index: number }
+  | { type: "UPDATE_ITEM"; index: number; updates: Partial<State<T>[0]> }
   | { type: "ADD_ITEM" }
-  | { type: "RESET"; id: string; value: T }
+  | { type: "RESET"; index: number; value: T }
   | { type: "RESET_ALL"; values: T[] };
 
 export type ReducerFunction = <T>(
