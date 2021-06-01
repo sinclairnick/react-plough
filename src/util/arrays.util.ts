@@ -30,8 +30,15 @@ export const groupFieldArrays = <
   const array = Object.keys(groups).map((k) => groups[k])[0][0];
 
   const _actions: FieldArrayActions<any>[] = [];
-  Object.keys(groups).forEach((key) => _actions.push(groups[key][1]));
-  const actions = squashArrayActions(_actions);
+  const keys = Object.keys(groups);
+  keys.forEach((key) => _actions.push(groups[key][1]));
+
+  const actions = {
+    ...squashArrayActions(_actions),
+    removItem: (index: number) => {
+      keys.forEach((key) => groups[key][0][index].actions.remove());
+    },
+  };
 
   const data = array.map((_, i) => {
     type FieldArrayItemData = {
@@ -43,8 +50,9 @@ export const groupFieldArrays = <
       >;
     };
     const obj = {} as FieldArrayItemData;
-    Object.keys(groups).forEach((key) => {
+    keys.forEach((key) => {
       obj[key as K] = groups[key][0][i];
+      delete obj[key].actions.remove; // Don't want to have mismatched array shapes
     });
     return obj;
   });
