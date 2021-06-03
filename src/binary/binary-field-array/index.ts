@@ -30,14 +30,17 @@ export function useBinaryFieldArray(
     return value;
   };
 
-  const initialValues = options?.initialValues?.map((init) => Boolean(init));
+  const initialValue = Array.isArray(options?.initialValue)
+    ? options?.initialValue.map((init) => Boolean(init))
+    : options.initialValue;
   const isRequired = Boolean(options?.isRequired);
 
   return useBaseFieldArray({
     checkForErrors,
     extractValue,
     checkIfEmpty,
-    initialValues,
+    initialValue,
+    defaultValue: false,
     isRequired,
   });
 }

@@ -38,14 +38,15 @@ export function useFileFieldArray(
     return value == null || value?.length === 0;
   };
 
-  const initialValues = options?.initialValues;
+  const initialValue = options?.initialValue;
   const isRequired = Boolean(options?.isRequired);
 
   const [_data, actions] = useBaseFieldArray({
     checkForErrors,
     extractValue,
     checkIfEmpty,
-    initialValues,
+    initialValue,
+    defaultValue: undefined,
     isRequired,
   });
   const data = _data.map((d) => {

@@ -47,7 +47,7 @@ export type ReducerFunction = <T>(
 ) => State<T>;
 
 export type FieldArrayOptions<T> = {
-  initialValues?: T[];
+  initialValue?: T[] | T;
   validate?: (
     itemMeta: FieldMetaWithoutError<T>,
     allMeta: FieldMetaWithoutError<T>[]
