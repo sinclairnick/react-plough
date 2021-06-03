@@ -42,37 +42,3 @@ export const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
       }));
   }
 };
-
-export const generateItemActions = <T>(
-  index: number,
-  dispatch: Dispatch<Action<T>>
-) =>
-  useMemo(() => {
-    return {
-      remove: () => dispatch({ type: "REMOVE_ITEM", index }),
-      setValue: (value?: T) =>
-        dispatch({
-          type: "UPDATE_ITEM",
-          index,
-          updates: { value },
-        }),
-      setError: (error?: string) =>
-        dispatch({
-          type: "UPDATE_ITEM",
-          index,
-          updates: { error },
-        }),
-      setWasTouched: (touched?: boolean) =>
-        dispatch({
-          type: "UPDATE_ITEM",
-          index,
-          updates: { wasTouched: touched },
-        }),
-      setIsFocussed: (focussed?: boolean) =>
-        dispatch({
-          type: "UPDATE_ITEM",
-          index,
-          updates: { isFocussed: focussed },
-        }),
-    };
-  }, [dispatch, index]);

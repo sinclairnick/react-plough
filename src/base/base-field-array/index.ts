@@ -1,5 +1,5 @@
 import { ChangeEvent, Reducer, useMemo, useReducer } from "react";
-import { generateItemActions, reducer } from "./constants";
+import { reducer } from "./constants";
 import {
   Action,
   BaseFieldArrayOptions,
@@ -120,7 +120,38 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
       isEmpty: checkIfEmpty(item.value),
       isRequired: required,
     },
-    actions: { ...generateItemActions(i, dispatch), reset: () => reset(i) },
+    actions: {
+      remove: () =>
+        dispatch({
+          type: "REMOVE_ITEM",
+          index: i,
+        }),
+      setValue: (value?: T) =>
+        dispatch({
+          type: "UPDATE_ITEM",
+          index: i,
+          updates: { value },
+        }),
+      setError: (error?: string) =>
+        dispatch({
+          type: "UPDATE_ITEM",
+          index: i,
+          updates: { error },
+        }),
+      setWasTouched: (touched?: boolean) =>
+        dispatch({
+          type: "UPDATE_ITEM",
+          index: i,
+          updates: { wasTouched: touched },
+        }),
+      setIsFocussed: (focussed?: boolean) =>
+        dispatch({
+          type: "UPDATE_ITEM",
+          index: i,
+          updates: { isFocussed: focussed },
+        }),
+      reset: () => reset(i),
+    },
   }));
   return [items, arrayActions];
 }
