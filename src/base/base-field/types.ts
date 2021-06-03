@@ -24,6 +24,10 @@ export type FieldMeta<T> = {
 
 export type FieldActions<T> = {
   reset: (toValue?: T) => void;
+  setValue: (toValue?: T) => void;
+  setWasTouched: (touched?: boolean) => void;
+  setIsFocussed: (focussed?: boolean) => void;
+  setError: (error?: string) => void;
 };
 
 export type FieldMetaWithoutError<T> = Omit<FieldMeta<T>, "error" | "hasError">;

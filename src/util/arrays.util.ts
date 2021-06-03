@@ -1,7 +1,6 @@
 import {
   FieldArrayActions,
   FieldArrayData,
-  FieldArrayItemActions,
 } from "../base/base-field-array/types";
 
 export const squashArrayActions = <A extends FieldArrayActions<any>[]>(
@@ -35,8 +34,8 @@ export const groupFieldArrays = <
 
   const actions = {
     ...squashArrayActions(_actions),
-    removItem: (index: number) => {
-      keys.forEach((key) => groups[key][0][index].actions.remove());
+    removeItem: (index: number) => {
+      keys.forEach((key) => groups[key][0][index]?.actions?.remove());
     },
   };
 
@@ -52,7 +51,6 @@ export const groupFieldArrays = <
     const obj = {} as FieldArrayItemData;
     keys.forEach((key) => {
       obj[key as K] = groups[key][0][i];
-      delete obj[key].actions.remove; // Don't want to have mismatched array shapes
     });
     return obj;
   });

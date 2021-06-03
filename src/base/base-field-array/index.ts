@@ -1,5 +1,5 @@
 import { ChangeEvent, Reducer, useMemo, useReducer } from "react";
-import { reducer } from "./constants";
+import { generateItemActions, reducer } from "./constants";
 import {
   Action,
   BaseFieldArrayOptions,
@@ -38,9 +38,6 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
 
   const addItem = () => {
     dispatch({ type: "ADD_ITEM" });
-  };
-  const removeItem = (index: number) => {
-    dispatch({ type: "REMOVE_ITEM", index });
   };
 
   const onChange = async (e: ChangeEvent<E>, index: number) => {
@@ -123,10 +120,7 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
       isEmpty: checkIfEmpty(item.value),
       isRequired: required,
     },
-    actions: {
-      remove: () => removeItem(i),
-      reset: () => reset(i),
-    },
+    actions: { ...generateItemActions(i, dispatch), reset: () => reset(i) },
   }));
   return [items, arrayActions];
 }

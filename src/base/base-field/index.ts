@@ -77,6 +77,10 @@ export function useBaseField<T, E = HTMLInputElement>(
 
   const actions: FieldActions<T> = {
     reset,
+    setValue,
+    setWasTouched,
+    setIsFocussed,
+    setError,
   };
 
   const props: FieldProps<T, E> = {
