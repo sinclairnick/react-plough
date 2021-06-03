@@ -1,6 +1,6 @@
 {
   "name": "react-plough",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "tend your fields with react plough",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
