@@ -15,22 +15,30 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     checkForErrors,
     extractValue,
     checkIfEmpty,
-    initialValues,
+    initialValue,
     isRequired,
+    defaultValue,
   } = options;
   const initialState: State<T> = useMemo(
     () =>
-      (initialValues ?? []).map((val) => ({
-        wasTouched: false,
-        isFocussed: false,
-        error: undefined,
-        value: val,
-      })),
-    [...initialValues]
+      Array.isArray(initialValue)
+        ? initialValue.map((val) => ({
+            wasTouched: false,
+            isFocussed: false,
+            error: undefined,
+            value: val,
+          }))
+        : [],
+    [JSON.stringify(initialValue)]
   );
 
+  // Required to prevent errors about uncontrolled inputs turning controlled
+  const newItemValue = Array.isArray(initialValue)
+    ? defaultValue // Is <T>-specific, e.g. "", 0
+    : initialValue;
+
   const [state, dispatch] = useReducer<Reducer<State<T>, Action<T>>>(
-    reducer,
+    reducer(newItemValue),
     initialState
   );
 
@@ -93,7 +101,10 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
   };
 
   const resetAll = (toValues?: T[]) => {
-    dispatch({ type: "RESET_ALL", values: toValues ?? initialValues });
+    dispatch({
+      type: "RESET_ALL",
+      values: toValues ?? initialState.map((s) => s.value),
+    });
   };
 
   const arrayActions: FieldArrayActions<T> = {
@@ -101,7 +112,7 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     addItem,
   };
 
-  const items: FieldArrayData<T, E>[] = state.map((item, i) => ({
+  const items: FieldArrayData<T, E>[] = state.map((item, i, array) => ({
     props: {
       onBlur: () => onBlur(i),
       onChange: (e: ChangeEvent<E>) => onChange(e, i),

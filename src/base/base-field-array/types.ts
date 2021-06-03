@@ -6,8 +6,9 @@ import {
 } from "../base-field/types";
 
 export type BaseFieldArrayOptions<T> = {
-  initialValues: T[];
+  initialValue: T[] | T;
   isRequired?: boolean;
+  defaultValue: T;
   checkForErrors: (
     itemMeta: FieldMetaWithoutError<any>,
     allMeta: FieldMetaWithoutError<any>[]
