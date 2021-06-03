@@ -4,6 +4,9 @@
   "description": "tend your fields with react plough",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/sinclairnick/react-plough"
+  },
   "files": [
     "dist"
   ],
