@@ -9,4 +9,6 @@ export * from "./file/file-field-array";
 export * from "./text/text-field";
 export * from "./text/text-field-array";
 export * from "./util/arrays.util";
-export * from "./util/form.util";
+export * from "./util/form/compose-form";
+export * from "./util/form/create-form";
+export * from "./util/form/types";

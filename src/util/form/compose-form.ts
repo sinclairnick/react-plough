@@ -1,4 +1,4 @@
-import { FieldMeta } from "../base/base-field/types";
+import { FieldMeta } from "../../base/base-field/types";
 
 /**
  * Extract values and run common checks over many fields
