@@ -1,9 +1,9 @@
-import { useBinaryField } from "src/binary/binary-field";
-import { useBinaryFieldArray } from "src/binary/binary-field-array";
-import { useFileField } from "src/file/file-field";
-import { useFileFieldArray } from "src/file/file-field-array";
-import { useTextField } from "src/text/text-field";
-import { useTextFieldArray } from "src/text/text-field-array";
+import { useBinaryField } from "../../binary/binary-field";
+import { useBinaryFieldArray } from "../../binary/binary-field-array";
+import { useFileField } from "../../file/file-field";
+import { useFileFieldArray } from "../../file/file-field-array";
+import { useTextField } from "../../text/text-field";
+import { useTextFieldArray } from "../../text/text-field-array";
 
 export type ExtractPrimitiveHookType<T> = T extends "binary"
   ? typeof useBinaryField
