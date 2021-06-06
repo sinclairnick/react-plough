@@ -151,7 +151,7 @@ export function createForm<
       [key in K & string]: typeof formData[key] extends FieldArrayDataType<
         Value<key>
       >
-        ? typeof formData[key]["data"][number]["meta"]
+        ? typeof formData[key]["data"][number]["meta"][]
         : typeof formData[key] extends FieldDataType<Value<key>>
         ? typeof formData[key]["meta"]
         : any;
