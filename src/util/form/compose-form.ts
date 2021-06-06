@@ -18,7 +18,7 @@ export function composeForm<
 
   const data = {} as {
     [key in keyof O]: typeof fields[key] extends FieldMeta<any>[]
-      ? typeof fields[key][0]["value"]
+      ? typeof fields[key][number]["value"][]
       : typeof fields[key] extends FieldMeta<any>
       ? typeof fields[key]["value"]
       : unknown;
