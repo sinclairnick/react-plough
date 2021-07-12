@@ -6,6 +6,7 @@
     "declaration": true,
     "sourceMap": true,
     "lib": ["es2020", "dom"],
+    "jsx": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
