@@ -229,6 +229,11 @@ progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
+react-plough@^0.0.19:
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/react-plough/-/react-plough-0.0.19.tgz#54d93c50582a694b986a5700c8d2b17ec905410a"
+  integrity sha512-vGYmM9dL0TktnVqUmP6XnYaHQzJlern89vGwj7GVw7eNIKLzRM4wB9lXQk52Nxk4g5iIdQu1QdrxpgcUT7TEWA==
+
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
