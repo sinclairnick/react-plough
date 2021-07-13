@@ -11,7 +11,11 @@ yarn add react-plough
 npm i react-plough
 ```
 
-`react-plough` is yet another react form library. It aims to improve developer experience and reduce user error by providing strongly typed and performant interfaces for react form fields. Unlike existing form libraries, `plough` does not use react context and does not require any manual type annotation. In other words, it is lightweight and hard to break.
+`react-plough` is yet another react form library. It prioritises developer experience and aims to reduce user error by providing strongly typed and performant interfaces for react form fields. Unlike existing form libraries, `plough` does not use react context and does not require any manual type annotation. In other words, it is lightweight and hard to screw up.
+
+> `plough` is 3 to 700x faster than Formik \*(see bottom)
+
+Play with the [Formik comparison](https://codesandbox.io/s/react-plough-vs-formik-flv9u?file=/src/App.tsx)
 
 Check out the [Docs](https://react-plough.vercel.app/)
 
@@ -49,13 +53,15 @@ const LoginForm = () => {
 };
 ```
 
-The fields are not dependent on each other and don't use any react context. This means it causes the minimum amount of re-renders, and gradual adoption is simple.
+The fields are not dependent on each other and don't use any react context. This means it causes the minimum amount of re-renders, and gradual adoption is simple. In the basic case, plough acts like a glorified `useState` with some input-specific helpers.
 
 However, forms often exist across several layers of the DOM tree, have lists of fields and have more complicated requirements. As such, opt-in utilities exist to enable complicated use-cases too.
 
 ---
 
 ## A more realistic example
+
+Bear in mind that all of the below is strongly typed -- no guessing or type annotation required
 
 ```ts
 const form = createForm({
@@ -106,4 +112,26 @@ export const FriendForm = () => {
 };
 ```
 
-The `createForm` function simply wraps some utilities (also available as standalones) and makes the variables accessible to elsewhere in the codebase when needed.
+Check out the other [functions](https://react-plough.vercel.app/modules.html#composeform) exported from plough to see other helpers
+
+## Notes on the Formik Comparison and Performance
+
+> In most cases, performance won't be that important. But when forms do have performance issues, these issues are often hard to fix and very problematic
+
+> While this describes Formik, most of the points here apply to other existing form libraries, as they tend to use the same underlying approach
+
+The [Formik comparison](https://codesandbox.io/s/react-plough-vs-formik-flv9u?file=/src/App.tsx) evaluated various things like number of sibling component re-renders, time to re-render and time to pull out values upon submission. To do this, many inputs (from 1 to 100,000) were created. Of course, no one will likely ever need 100,000 inputs, but this case emulates the behaviour of, say, having expensive calculations run in only a few components.
+
+**Sibling re-renders**
+
+Formik causes a re-render of sibling components (within the `<Formik/>` component) when any field in that component changes. Conversely, plough does not do this. So, in effect Formik renders sibling components potentially infinitely more than plough.
+
+**Extracting form values for submission**
+
+The disparity between Formik and plough here is surprising. With 100,000 inputs, Formik takes 7000ms to retrieve the values, whereas plough only takes 10!
+
+**Input-Re-render delay**
+
+Across every scale of evaluation, plough outperformed Formik. While smaller trials showed a difference that is negligible in practice, the larger trials showed the fundamental difference in performance between the two libraries.
+
+![](./assets/plough-formik.png)
