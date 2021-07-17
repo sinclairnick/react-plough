@@ -41,7 +41,7 @@ export function createForm<
     >;
   };
 
-  const formData: {
+  let formData: {
     [key in K & string]?: ExtractDataType<Value<key>, Type<key>>;
   } = {};
 
@@ -168,5 +168,16 @@ export function createForm<
     return composeForm(metas as MetaType);
   };
 
-  return { ...(hooks as HooksObject), getData, collect };
+  const reset = () => {
+    for (const key in formData) {
+      const entry = formData[key as K & string];
+      if ("arrayActions" in entry) {
+        entry.arrayActions?.resetAll();
+      } else {
+        entry.actions?.reset();
+      }
+    }
+  };
+
+  return { ...(hooks as HooksObject), getData, collect, reset };
 }
