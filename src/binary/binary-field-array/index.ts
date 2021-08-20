@@ -30,9 +30,10 @@ export function useBinaryFieldArray(
     return value;
   };
 
-  const initialValue = Array.isArray(options?.initialValue)
+  const initialValue = (Array.isArray(options?.initialValue)
     ? options?.initialValue.map((init) => Boolean(init))
-    : options.initialValue;
+    : options?.initialValue)
+    ?? [];
   const isRequired = Boolean(options?.isRequired);
 
   return useBaseFieldArray({

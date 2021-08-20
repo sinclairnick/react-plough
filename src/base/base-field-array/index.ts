@@ -9,7 +9,7 @@ import {
 } from "./types";
 
 export function useBaseFieldArray<T, E = HTMLInputElement>(
-  options: BaseFieldArrayOptions<T>
+  options: BaseFieldArrayOptions<T, E>
 ): [FieldArrayData<T, E>[], FieldArrayActions<T>] {
   const {
     checkForErrors,
@@ -23,11 +23,11 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     () =>
       Array.isArray(initialValue)
         ? initialValue.map((val) => ({
-            wasTouched: false,
-            isFocussed: false,
-            error: undefined,
-            value: val,
-          }))
+          wasTouched: false,
+          isFocussed: false,
+          error: undefined,
+          value: val,
+        }))
         : [],
     [JSON.stringify(initialValue)]
   );

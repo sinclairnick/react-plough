@@ -30,9 +30,10 @@ export function useTextFieldArray(
     return value == null || value?.length === 0;
   };
 
-  const initialValue = Array.isArray(options?.initialValue)
+  const initialValue = (Array.isArray(options?.initialValue)
     ? options?.initialValue.map((initialValue) => `${initialValue ?? ""}`)
-    : options?.initialValue;
+    : options?.initialValue)
+    ?? [];
   const isRequired = Boolean(options?.isRequired);
 
   return useBaseFieldArray({

@@ -1,12 +1,12 @@
 import { ChangeEvent } from "react";
 
-export type BaseFieldOptions<T> = {
+export type BaseFieldOptions<T, E> = {
   initialValue: T;
   isRequired?: boolean;
   checkForErrors: (
     meta: FieldMetaWithoutError<any>
   ) => Promise<string | undefined> | string | undefined;
-  extractValue: (target: EventTarget) => T;
+  extractValue: (target: EventTarget & E) => T;
   checkIfEmpty: (val: T) => boolean;
   deps: any[];
 };
@@ -24,9 +24,9 @@ export type FieldMeta<T> = {
 
 export type FieldActions<T> = {
   reset: (toValue?: T) => void;
-  setValue: (toValue?: T) => void;
-  setWasTouched: (touched?: boolean) => void;
-  setIsFocussed: (focussed?: boolean) => void;
+  setValue: (toValue: T) => void;
+  setWasTouched: (touched: boolean) => void;
+  setIsFocussed: (focussed: boolean) => void;
   setError: (error?: string) => void;
 };
 

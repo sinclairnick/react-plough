@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { BaseFieldOptions, FieldActions, FieldMeta, FieldProps } from "./types";
 
 export function useBaseField<T, E = HTMLInputElement>(
-  options: BaseFieldOptions<T>
+  options: BaseFieldOptions<T, E>
 ): [FieldProps<T, E>, FieldMeta<T>, FieldActions<T>] {
   const {
     checkForErrors,

@@ -8,7 +8,7 @@ import { FieldMetaWithoutError } from "../../base/base-field/types";
 import { FileFieldProps } from "../file-field";
 
 export type FileFieldArrayProps = Omit<
-  FieldArrayData<FileList, HTMLInputElement>,
+  FieldArrayData<FileList | null, HTMLInputElement>,
   "props"
 > & {
   props: FileFieldProps;

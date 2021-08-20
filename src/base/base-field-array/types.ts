@@ -5,7 +5,7 @@ import {
   FieldProps,
 } from "../base-field/types";
 
-export type BaseFieldArrayOptions<T> = {
+export type BaseFieldArrayOptions<T, E> = {
   initialValue: T[] | T;
   isRequired?: boolean;
   defaultValue: T;
@@ -13,7 +13,7 @@ export type BaseFieldArrayOptions<T> = {
     itemMeta: FieldMetaWithoutError<any>,
     allMeta: FieldMetaWithoutError<any>[]
   ) => Promise<string | undefined> | (string | undefined);
-  extractValue: (target: EventTarget) => T;
+  extractValue: (target: EventTarget & E) => T;
   checkIfEmpty: (val: T) => boolean;
 };
 
@@ -31,7 +31,7 @@ export type State<T> = {
   wasTouched: boolean;
   isFocussed: boolean;
   error?: string;
-  value?: T;
+  value: T;
 }[];
 
 export type Action<T> =
