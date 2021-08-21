@@ -8,14 +8,14 @@ import { FieldMetaWithoutError } from "../../base/base-field/types";
 import { FileFieldProps } from "../file-field";
 
 export type FileFieldArrayProps = Omit<
-  FieldArrayData<FileList | null, HTMLInputElement>,
+  FieldArrayData<FileList | null | undefined, HTMLInputElement>,
   "props"
 > & {
   props: FileFieldProps;
 };
 
 export function useFileFieldArray(
-  options?: FieldArrayOptions<FileList>
+  options?: FieldArrayOptions<FileList | undefined>
 ): [FileFieldArrayProps[], FieldArrayActions<FileList>] {
   const checkForErrors = async (
     itemMeta: FieldMetaWithoutError<FileList>,
@@ -31,7 +31,7 @@ export function useFileFieldArray(
 
   const extractValue = (target: EventTarget & HTMLInputElement) => {
     const newValue = target.files;
-    return options?.transform?.(newValue) ?? newValue;
+    return options?.transform?.(newValue ?? undefined) ?? newValue;
   };
 
   const checkIfEmpty = (value: FileList) => {

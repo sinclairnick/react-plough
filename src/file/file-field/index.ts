@@ -12,9 +12,9 @@ export type FileFieldProps = Omit<
 >;
 
 export function useFileField(
-  options?: FieldOptions<FileList>,
+  options?: FieldOptions<FileList | null | undefined>,
   deps: any[] = []
-): [FileFieldProps, FieldMeta<FileList>] {
+): [FileFieldProps, FieldMeta<FileList | null | undefined>] {
   const checkForErrors = async (meta: FieldMetaWithoutError<FileList>) => {
     const error = await options?.validate?.(meta);
     const isEmpty = checkIfEmpty(meta.value);
@@ -28,7 +28,7 @@ export function useFileField(
 
   const extractValue = (target: EventTarget & HTMLInputElement) => {
     const newValue = target.files;
-    return options?.transform?.(newValue) ?? newValue;
+    return options?.transform?.(newValue ?? undefined) ?? newValue;
   };
 
   const checkIfEmpty = (value: FileList) => {
