@@ -1,5 +1,13 @@
 import { FieldMeta } from "../../base/base-field/types";
 
+type Meta = {
+  hasErrors: boolean,
+  isComplete: boolean,
+  wasTouched: boolean,
+  isFocussed: boolean,
+  isDirty: boolean,
+}
+
 /**
  * Extract values and run common checks over many fields
  * @returns [FormData, FormMeta]
@@ -8,21 +16,22 @@ export function composeForm<
   O extends {
     [key: string]: FieldMeta<any> | FieldMeta<any>[];
   },
-  K extends keyof O
->(fields: O) {
+  K extends keyof O,
+  D extends {
+    [key in keyof O]: O[key] extends any[]
+    ? O[key][number]["value"][]
+    : O[key] extends FieldMeta<any>
+    ? O[key]["value"]
+    : unknown;
+  },
+  >(fields: O): [D, Meta] {
   let hasErrors = false;
   let isComplete = true;
   let wasTouched = false;
   let isFocussed = false;
   let isDirty = false;
 
-  const data = {} as {
-    [key in keyof O]: typeof fields[key] extends any[]
-      ? typeof fields[key][number]["value"][]
-      : typeof fields[key] extends FieldMeta<any>
-      ? typeof fields[key]["value"]
-      : unknown;
-  };
+  const data = {} as D
   for (const key of Object.keys(fields)) {
     const value = fields[key];
     // Handle array values
@@ -56,5 +65,5 @@ export function composeForm<
     isDirty,
   };
 
-  return [data, meta] as const;
+  return [data, meta]
 }

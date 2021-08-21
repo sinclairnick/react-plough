@@ -140,7 +140,7 @@ export function createForm<
    * Gets the raw internal form data
    */
   const getData = () => {
-    return formData;
+    return formData as FormData;
   };
 
   /**
@@ -148,24 +148,25 @@ export function createForm<
    */
   const collect = () => {
     type MetaType = {
-      [key in K & string]: typeof formData[key] extends FieldArrayDataType<
+      [key in K & string]:
+      FormData[key] extends FieldArrayDataType<
         Value<key>
       >
-        ? typeof formData[key]["data"][number]["meta"][]
-        : typeof formData[key] extends FieldDataType<Value<key>>
-        ? typeof formData[key]["meta"]
-        : any;
+      ? FormData[key]["data"][number]["meta"][]
+      : FormData[key] extends FieldDataType<Value<key>>
+      ? FormData[key]["meta"]
+      : any;
     };
-    const metas: Partial<MetaType> = {};
+    const metas = {} as MetaType;
     for (const key in formData) {
       const data = formData[key as K & string];
       if ("meta" in data) {
         metas[key] = data["meta"];
         continue;
       }
-      metas[key] = data["data"]?.map((d) => d["meta"]);
+      metas[key] = data?.["data"]?.map((d) => d["meta"]);
     }
-    return composeForm(metas as MetaType);
+    return composeForm(metas);
   };
 
   const reset = () => {
@@ -174,10 +175,10 @@ export function createForm<
       if ("arrayActions" in entry) {
         entry.arrayActions?.resetAll();
       } else {
-        entry.actions?.reset();
+        entry?.actions?.reset();
       }
     }
   };
 
-  return { ...(hooks as HooksObject), getData, collect, reset };
+  return { ...(hooks as any as HooksObject), getData, collect, reset };
 }

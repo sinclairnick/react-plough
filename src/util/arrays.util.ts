@@ -42,9 +42,9 @@ export const groupFieldArrays = <
   const data = array.map((_, i) => {
     type FieldArrayItemData = {
       [key in keyof O]: FieldArrayData<
-        typeof groups[key][0][typeof i]["meta"]["value"],
+        O[key][0][typeof i]["meta"]["value"],
         Parameters<
-          typeof groups[key][0][typeof i]["props"]["onChange"]
+          O[key][0][typeof i]["props"]["onChange"]
         >["0"]["target"]
       >;
     };
