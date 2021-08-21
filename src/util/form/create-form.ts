@@ -183,5 +183,3 @@ export function createForm<
 
   return { ...(hooks as any as HooksObject), getData, collect, reset };
 }
-const form = createForm({ a: "" })
-const [x] = form.collect()
