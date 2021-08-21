@@ -40,10 +40,9 @@ export function createForm<
       Type<key>
     >;
   };
+  type FormData = { [key in K & string]: ExtractDataType<Value<key>, Type<key>>; }
 
-  let formData: {
-    [key in K & string]?: ExtractDataType<Value<key>, Type<key>>;
-  } = {};
+  let formData = {} as FormData;
 
   const hooks: Partial<HooksObject> = {};
   for (const key of Object.keys(initialValues)) {
@@ -142,7 +141,7 @@ export function createForm<
    * Gets the raw internal form data
    */
   const getData = () => {
-    return formData as FormData;
+    return formData
   };
 
   /**
@@ -184,3 +183,5 @@ export function createForm<
 
   return { ...(hooks as any as HooksObject), getData, collect, reset };
 }
+const form = createForm({ a: "" })
+const [x] = form.collect()
