@@ -11,12 +11,12 @@ export function useTextField(
   options?: FieldOptions<string>,
   deps: any[] = []
 ): [
-  FieldProps<string, HTMLInputElement>,
-  FieldMeta<string>,
-  FieldActions<string>
-] {
-  const checkForErrors = async (meta: FieldMetaWithoutError<string>) => {
-    const error = await options?.validate?.(meta);
+    FieldProps<string, HTMLInputElement>,
+    FieldMeta<string>,
+    FieldActions<string>
+  ] {
+  const checkForErrors = (meta: FieldMetaWithoutError<string>) => {
+    const error = options?.validate?.(meta);
     const requiredErrorMessage =
       options?.isRequired && meta.value.length == 0
         ? `${options.label ?? "This field"} is required`

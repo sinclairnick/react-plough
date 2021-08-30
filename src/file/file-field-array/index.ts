@@ -17,11 +17,11 @@ export type FileFieldArrayProps = Omit<
 export function useFileFieldArray(
   options?: FieldArrayOptions<FileList | undefined>
 ): [FileFieldArrayProps[], FieldArrayActions<FileList>] {
-  const checkForErrors = async (
+  const checkForErrors = (
     itemMeta: FieldMetaWithoutError<FileList>,
     allMeta: FieldMetaWithoutError<FileList>[]
   ) => {
-    const error = await options?.validate?.(itemMeta, allMeta);
+    const error = options?.validate?.(itemMeta, allMeta);
     const requiredErrorMessage =
       options?.isRequired && itemMeta.value.length == 0
         ? `${options.label ?? "This field"} is required`

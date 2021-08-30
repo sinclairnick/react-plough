@@ -9,11 +9,11 @@ import { FieldMetaWithoutError } from "../../base/base-field/types";
 export function useBinaryFieldArray(
   options?: FieldArrayOptions<boolean>
 ): [FieldArrayData<boolean, HTMLInputElement>[], FieldArrayActions<boolean>] {
-  const checkForErrors = async (
+  const checkForErrors = (
     itemMeta: FieldMetaWithoutError<boolean>,
     allMeta: FieldMetaWithoutError<boolean>[]
   ) => {
-    const error = await options?.validate?.(itemMeta, allMeta);
+    const error = options?.validate?.(itemMeta, allMeta);
     const requiredErrorMessage =
       options?.isRequired && !itemMeta.value
         ? `${options.label ?? "This field"} is required`

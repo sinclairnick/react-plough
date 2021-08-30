@@ -5,7 +5,7 @@ export type BaseFieldOptions<T, E> = {
   isRequired?: boolean;
   checkForErrors: (
     meta: FieldMetaWithoutError<any>
-  ) => Promise<string | undefined> | string | undefined;
+  ) => string | undefined;
   extractValue: (target: EventTarget & E) => T;
   checkIfEmpty: (val: T) => boolean;
   deps: any[];
@@ -46,7 +46,7 @@ export type FieldOptions<T> = {
   initialValue?: T;
   validate?: (
     meta: FieldMetaWithoutError<T>
-  ) => Promise<string | undefined> | string | undefined;
+  ) => string | undefined;
   transform?: (val: T) => T;
   label?: string;
   isRequired?: boolean;

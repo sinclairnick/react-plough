@@ -11,12 +11,12 @@ export function useBinaryField(
   options?: FieldOptions<boolean>,
   deps: any[] = []
 ): [
-  FieldProps<boolean, HTMLInputElement>,
-  FieldMeta<boolean>,
-  FieldActions<boolean>
-] {
-  const checkForErrors = async (meta: FieldMetaWithoutError<boolean>) => {
-    const error = await options?.validate?.(meta);
+    FieldProps<boolean, HTMLInputElement>,
+    FieldMeta<boolean>,
+    FieldActions<boolean>
+  ] {
+  const checkForErrors = (meta: FieldMetaWithoutError<boolean>) => {
+    const error = options?.validate?.(meta);
     const requiredErrorMessage =
       options?.isRequired && !meta.value
         ? `${options.label ?? "This field"} is required`

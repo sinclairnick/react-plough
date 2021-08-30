@@ -23,10 +23,10 @@ export function useBaseField<T, E = HTMLInputElement>(
 
   const required = Boolean(isRequired);
 
-  const onChange = async (e: ChangeEvent<E>) => {
+  const onChange = (e: ChangeEvent<E>) => {
     const _value = extractValue(e.target);
 
-    const _error = await checkForErrors({
+    const _error = checkForErrors({
       ...meta,
       value: _value,
     });
@@ -34,8 +34,8 @@ export function useBaseField<T, E = HTMLInputElement>(
     setValue(_value);
   };
 
-  const onBlur = async () => {
-    const _error = await checkForErrors({
+  const onBlur = () => {
+    const _error = checkForErrors({
       ...meta,
       wasTouched: true,
       isFocussed: false,
@@ -48,8 +48,8 @@ export function useBaseField<T, E = HTMLInputElement>(
     setIsFocussed(false);
   };
 
-  const onFocus = async () => {
-    const _error = await checkForErrors({
+  const onFocus = () => {
+    const _error = checkForErrors({
       ...meta,
       isFocussed: true,
     });

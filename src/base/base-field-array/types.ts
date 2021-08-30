@@ -12,7 +12,7 @@ export type BaseFieldArrayOptions<T, E> = {
   checkForErrors: (
     itemMeta: FieldMetaWithoutError<any>,
     allMeta: FieldMetaWithoutError<any>[]
-  ) => Promise<string | undefined> | (string | undefined);
+  ) => (string | undefined);
   extractValue: (target: EventTarget & E) => T;
   checkIfEmpty: (val: T) => boolean;
 };
@@ -51,7 +51,7 @@ export type FieldArrayOptions<T> = {
   validate?: (
     itemMeta: FieldMetaWithoutError<T>,
     allMeta: FieldMetaWithoutError<T>[]
-  ) => Promise<string | undefined> | string | undefined;
+  ) => string | undefined;
   transform?: (val: T) => T;
   label?: string;
   isRequired?: boolean;

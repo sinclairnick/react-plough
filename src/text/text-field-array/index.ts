@@ -9,11 +9,11 @@ import { FieldMetaWithoutError } from "../../base/base-field/types";
 export function useTextFieldArray(
   options?: FieldArrayOptions<string>
 ): [FieldArrayData<string, HTMLInputElement>[], FieldArrayActions<string>] {
-  const checkForErrors = async (
+  const checkForErrors = (
     itemMeta: FieldMetaWithoutError<string>,
     allMeta: FieldMetaWithoutError<string>[]
   ) => {
-    const error = await options?.validate?.(itemMeta, allMeta);
+    const error = options?.validate?.(itemMeta, allMeta);
     const requiredErrorMessage =
       options?.isRequired && itemMeta.value.length == 0
         ? `${options.label ?? "This field"} is required`

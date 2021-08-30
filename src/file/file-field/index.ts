@@ -15,8 +15,8 @@ export function useFileField(
   options?: FieldOptions<FileList | null | undefined>,
   deps: any[] = []
 ): [FileFieldProps, FieldMeta<FileList | null | undefined>] {
-  const checkForErrors = async (meta: FieldMetaWithoutError<FileList>) => {
-    const error = await options?.validate?.(meta);
+  const checkForErrors = (meta: FieldMetaWithoutError<FileList>) => {
+    const error = options?.validate?.(meta);
     const isEmpty = checkIfEmpty(meta.value);
     const requiredErrorMessage =
       options?.isRequired && isEmpty
