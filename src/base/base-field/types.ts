@@ -33,7 +33,7 @@ export type FieldActions<T> = {
 export type FieldMetaWithoutError<T> = Omit<FieldMeta<T>, "error" | "hasError">;
 
 export type FieldProps<T, E> = {
-  onChange: (e: ChangeEvent<E>) => void | Promise<void>;
+  onChange: (e: ChangeEvent<E>) => void;
   onBlur: () => void | Promise<void>;
   onFocus: () => void | Promise<void>;
   value: T;

@@ -48,11 +48,11 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     dispatch({ type: "ADD_ITEM" });
   };
 
-  const onChange = async (e: ChangeEvent<E>, index: number) => {
+  const onChange = (e: ChangeEvent<E>, index: number) => {
     const _value = extractValue(e.target);
     const meta = items[index].meta;
 
-    const _error = await checkForErrors(
+    const _error = checkForErrors(
       {
         ...meta,
         value: _value,
