@@ -17,7 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "typedoc src/index.ts --out docs --theme minimal",
     "build": "tsc",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build && yarn docs"
   },
   "keywords": [
     "react",
