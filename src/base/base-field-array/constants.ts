@@ -26,7 +26,6 @@ export const reducer =
             state.slice(action.index)
           ]
           const newItem = { ...defaultValues, ...(action.data ?? {}) }
-          console.log(newItem)
           return [
             ...before,
             newItem,
@@ -47,7 +46,7 @@ export const reducer =
 
         case "RESET": {
           const values = [...state];
-          values[action.index] = defaultValues
+          values[action.index] = { ...defaultValues, value: action.value }
           return values;
         }
 
