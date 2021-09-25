@@ -23,7 +23,9 @@ export type FieldArrayItemActions<T> = FieldActions<T> & {
 };
 
 export type FieldArrayActions<T> = {
-  addItem: () => void;
+  insertItem: (index: number, value?: T) => void;
+  removeItem: (index: number) => void;
+  appendItem: () => void;
   resetAll: (toValues?: T[]) => void;
 };
 
@@ -32,12 +34,14 @@ export type State<T> = {
   isFocussed: boolean;
   error?: string;
   value: T;
+  id: string;
 }[];
 
 export type Action<T> =
   | { type: "REMOVE_ITEM"; index: number }
-  | { type: "UPDATE_ITEM"; index: number; updates: Partial<State<T>[0]> }
-  | { type: "ADD_ITEM" }
+  | { type: "UPDATE_ITEM"; index: number; updates: Partial<State<T>[number]> }
+  | { type: "APPEND_ITEM" }
+  | { type: "INSERT_ITEM", index: number, data?: Partial<State<T>[number]> }
   | { type: "RESET"; index: number; value: T }
   | { type: "RESET_ALL"; values: T[] };
 

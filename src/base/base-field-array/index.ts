@@ -1,5 +1,5 @@
 import { ChangeEvent, Reducer, useMemo, useReducer } from "react";
-import { reducer } from "./constants";
+import { generateId, reducer } from "./constants";
 import {
   Action,
   BaseFieldArrayOptions,
@@ -27,6 +27,7 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
           isFocussed: false,
           error: undefined,
           value: val,
+          id: generateId()
         }))
         : [],
     [JSON.stringify(initialValue)]
@@ -44,8 +45,8 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
 
   const required = Boolean(isRequired);
 
-  const addItem = () => {
-    dispatch({ type: "ADD_ITEM" });
+  const appendItem = () => {
+    dispatch({ type: "APPEND_ITEM" });
   };
 
   const onChange = (e: ChangeEvent<E>, index: number) => {
@@ -107,19 +108,36 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     });
   };
 
+  const insertItem = (index: number, value?: T) => {
+    dispatch({
+      type: "INSERT_ITEM",
+      index,
+      data: value != null ? { value } : undefined
+    })
+  }
+
+  const removeItem = (index: number) => {
+    dispatch({
+      type: "REMOVE_ITEM",
+      index,
+    })
+  }
+
   const arrayActions: FieldArrayActions<T> = {
+    removeItem,
     resetAll,
-    addItem,
+    insertItem,
+    appendItem,
   };
 
-  const items: FieldArrayData<T, E>[] = state.map((item, i, array) => ({
+  const items: FieldArrayData<T, E>[] = state.map((item, i) => ({
     props: {
       onBlur: () => onBlur(i),
       onChange: (e: ChangeEvent<E>) => onChange(e, i),
       onFocus: () => onFocus(i),
       value: item.value,
       required,
-      key: i, // Used solely to stop react warning for array keys
+      key: item.id, // Used solely to stop react warning for array keys
     },
     meta: {
       error: item.error,

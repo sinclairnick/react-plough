@@ -6,11 +6,16 @@ import {
 export const squashArrayActions = <A extends FieldArrayActions<any>[]>(
   actions: A
 ) => {
-  const addItem = () => actions.forEach((a) => a.addItem());
+  const appendItem = () => actions.forEach((a) => a.appendItem());
   const resetAll = () => actions.forEach((a) => a.resetAll());
+  const insertItem = (index: number) => actions.forEach((a) => a.insertItem(index))
+  const removeItem = (index: number) => actions.forEach((a) => a.removeItem(index))
+
   return {
-    addItem,
+    appendItem,
     resetAll,
+    insertItem,
+    removeItem
   };
 };
 
@@ -43,16 +48,16 @@ export const groupFieldArrays = <
     type FieldArrayItemData = {
       [key in keyof O]: FieldArrayData<
         O[key][0][typeof i]["meta"]["value"],
-        Parameters<
-          O[key][0][typeof i]["props"]["onChange"]
-        >["0"]["target"]
-      >;
-    };
+        Parameters<O[key][0][typeof i]["props"]["onChange"]>["0"]["target"]
+      >
+    }
     const obj = {} as FieldArrayItemData;
+    let compositeKey = ""
     keys.forEach((key) => {
       obj[key as K] = groups[key][0][i];
+      compositeKey += obj[key as K].props.key
     });
-    return obj;
+    return { ...obj, key: compositeKey };
   });
   return [data, actions] as const;
 };
