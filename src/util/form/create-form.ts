@@ -100,7 +100,6 @@ export function createForm<
       hooks[hookKey] = (...params: Parameters<typeof useBinaryField>) => {
         const [props, meta, actions] = useBinaryField(
           { initialValue: value as any, ...params[0] },
-          params[1]
         );
 
         formData[key] = { props, meta, actions };
@@ -115,7 +114,6 @@ export function createForm<
       (...params: Parameters<typeof useFileField>) => {
         const [props, meta] = useFileField(
           { initialValue: value as any, ...params[0], },
-          params[1]
         );
 
         formData[key] = { props, meta };
@@ -127,7 +125,6 @@ export function createForm<
     hooks[hookKey] = (...params: Parameters<typeof useTextField>) => {
       const [props, meta, actions] = useTextField(
         { initialValue: value as any, ...params[0], },
-        params[1]
       );
 
       formData[key] = { props, meta };
