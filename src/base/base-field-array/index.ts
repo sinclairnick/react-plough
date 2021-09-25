@@ -1,4 +1,4 @@
-import { ChangeEvent, Reducer, useMemo, useReducer } from "react";
+import { ChangeEvent, Reducer, useEffect, useMemo, useReducer } from "react";
 import { generateId, reducer } from "./constants";
 import {
   Action,
@@ -19,19 +19,25 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     isRequired,
     defaultValue,
   } = options;
-  const initialState: State<T> = useMemo(
-    () =>
-      Array.isArray(initialValue)
-        ? initialValue.map((val) => ({
-          wasTouched: false,
-          isFocussed: false,
-          error: undefined,
-          value: val,
-          id: generateId()
-        }))
-        : [],
-    [JSON.stringify(initialValue)]
+  const initialValuesJson = JSON.stringify(initialValue)
+  const { initialState, initialValues } = useMemo(
+    () => {
+      const initialState: State<T> =
+        Array.isArray(initialValue)
+          ? initialValue.map((val) => ({
+            wasTouched: false,
+            isFocussed: false,
+            error: undefined,
+            value: val,
+            id: generateId()
+          }))
+          : []
+      const initialValues = initialState.map(x => x.value)
+      return { initialState, initialValues }
+    },
+    [initialValuesJson]
   );
+
 
   // Required to prevent errors about uncontrolled inputs turning controlled
   const newItemValue = Array.isArray(initialValue)
@@ -40,8 +46,13 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
 
   const [state, dispatch] = useReducer<Reducer<State<T>, Action<T>>>(
     reducer(newItemValue),
-    initialState
+    initialState,
   );
+
+  // Subscribe to initial value changes
+  useEffect(() => {
+    dispatch({ type: "RESET_ALL", values: initialValues })
+  }, [JSON.stringify(initialValues)])
 
   const required = Boolean(isRequired);
 
