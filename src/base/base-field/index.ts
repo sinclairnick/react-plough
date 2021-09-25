@@ -18,7 +18,7 @@ export function useBaseField<T, E = HTMLInputElement>(
 
   useEffect(() => {
     setValue(initialValue);
-  }, [JSON.stringify(initialValue)]);
+  }, [initialValue]);
 
   const required = Boolean(isRequired);
 
