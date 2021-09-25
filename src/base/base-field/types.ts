@@ -8,7 +8,6 @@ export type BaseFieldOptions<T, E> = {
   ) => string | undefined;
   extractValue: (target: EventTarget & E) => T;
   checkIfEmpty: (val: T) => boolean;
-  deps: any[];
 };
 
 export type FieldMeta<T> = {
@@ -41,6 +40,10 @@ export type FieldProps<T, E> = {
   type?: string;
   key?: string | number;
 };
+
+export type FieldPropsBinary<T, E> = FieldProps<T, E> & {
+  checked: T
+}
 
 export type FieldOptions<T> = {
   initialValue?: T;

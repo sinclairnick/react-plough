@@ -7,14 +7,11 @@ import {
   FieldProps,
 } from "../../base/base-field/types";
 
-export function useBinaryField(
-  options?: FieldOptions<boolean>,
-  deps: any[] = []
-): [
-    FieldProps<boolean, HTMLInputElement>,
-    FieldMeta<boolean>,
-    FieldActions<boolean>
-  ] {
+export function useBinaryField(options?: FieldOptions<boolean>): [
+  FieldProps<boolean, HTMLInputElement>,
+  FieldMeta<boolean>,
+  FieldActions<boolean>
+] {
   const checkForErrors = (meta: FieldMetaWithoutError<boolean>) => {
     const error = options?.validate?.(meta);
     const requiredErrorMessage =
@@ -43,6 +40,5 @@ export function useBinaryField(
     checkIfEmpty,
     initialValue,
     isRequired,
-    deps,
   });
 }

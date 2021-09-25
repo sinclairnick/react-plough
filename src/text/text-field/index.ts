@@ -7,14 +7,11 @@ import {
   FieldProps,
 } from "../../base/base-field/types";
 
-export function useTextField(
-  options?: FieldOptions<string>,
-  deps: any[] = []
-): [
-    FieldProps<string, HTMLInputElement>,
-    FieldMeta<string>,
-    FieldActions<string>
-  ] {
+export function useTextField(options?: FieldOptions<string>,): [
+  FieldProps<string, HTMLInputElement>,
+  FieldMeta<string>,
+  FieldActions<string>
+] {
   const checkForErrors = (meta: FieldMetaWithoutError<string>) => {
     const error = options?.validate?.(meta);
     const requiredErrorMessage =
@@ -42,6 +39,5 @@ export function useTextField(
     checkIfEmpty,
     initialValue,
     isRequired,
-    deps,
   });
 }

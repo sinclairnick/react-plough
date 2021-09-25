@@ -10,7 +10,6 @@ export function useBaseField<T, E = HTMLInputElement>(
     checkIfEmpty,
     initialValue,
     isRequired,
-    deps,
   } = options;
   const [wasTouched, setWasTouched] = useState(false);
   const [isFocussed, setIsFocussed] = useState(false);
@@ -19,7 +18,7 @@ export function useBaseField<T, E = HTMLInputElement>(
 
   useEffect(() => {
     setValue(initialValue);
-  }, deps);
+  }, [JSON.stringify(initialValue)]);
 
   const required = Boolean(isRequired);
 
