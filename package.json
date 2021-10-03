@@ -1,41 +1,42 @@
 {
-  "name": "react-plough",
-  "version": "0.3.1",
-  "description": "tend your fields with react plough",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": {
-    "url": "https://github.com/sinclairnick/react-plough"
-  },
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "prebuild": "rimraf dist",
-    "predocs": "rimraf dist",
-    "check": "tsc --noEmit",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "typedoc src/index.ts --out docs --theme minimal",
-    "build": "tsc",
-    "prepublish": "npm run build && yarn docs"
-  },
-  "keywords": [
-    "react",
-    "plough",
-    "field",
-    "form"
-  ],
-  "author": "Nick Sinclair",
-  "license": "MIT",
-  "peerDependencies": {
-    "react": "^17.0.2"
-  },
-  "devDependencies": {
-    "@types/react": "^17.0.4",
-    "react": "^17.0.2",
-    "react-plough": "^0.0.19",
-    "rimraf": "^3.0.2",
-    "typedoc": "^0.21.9",
-    "typescript": "^4.3.5"
-  }
+    "name": "react-plough",
+    "version": "0.4.0",
+    "description": "tend your fields with react plough",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "url": "https://github.com/sinclairnick/react-plough"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "prebuild": "rimraf dist",
+        "check": "tsc --noEmit",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "predocs": "npm run buil",
+        "docs": "typedoc src/index.ts --out docs --theme minimal",
+        "build": "tsc",
+        "prepublish": "npm run build",
+        "postpublish": "npm run docs:build && npm run docs:deploy"
+    },
+    "keywords": [
+        "react",
+        "plough",
+        "field",
+        "form"
+    ],
+    "author": "Nick Sinclair",
+    "license": "MIT",
+    "peerDependencies": {
+        "react": "^17.0.2"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.4",
+        "react": "^17.0.2",
+        "react-plough": "^0.0.19",
+        "rimraf": "^3.0.2",
+        "typedoc": "^0.21.9",
+        "typescript": "^4.3.5"
+    }
 }
