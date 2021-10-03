@@ -3,12 +3,13 @@ import {
   FieldArrayActions,
   FieldArrayData,
   FieldArrayOptions,
+  FieldArrayMeta
 } from "../../base/base-field-array/types";
 import { FieldMetaWithoutError } from "../../base/base-field/types";
 
 export function useBinaryFieldArray(
   options?: FieldArrayOptions<boolean>
-): [FieldArrayData<boolean, HTMLInputElement>[], FieldArrayActions<boolean>] {
+): [FieldArrayData<boolean, HTMLInputElement>[], FieldArrayMeta, FieldArrayActions<boolean>] {
   const checkForErrors = (
     itemMeta: FieldMetaWithoutError<boolean>,
     allMeta: FieldMetaWithoutError<boolean>[]

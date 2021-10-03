@@ -1,7 +1,51 @@
 import {
   FieldArrayActions,
   FieldArrayData,
+  FieldArrayMeta,
 } from "../base/base-field-array/types";
+
+export const reduceArrayMeta = <
+  T extends { meta: FieldArrayMeta & { value?: any } }
+>(items: T[], initialValues?: any[]) => {
+  const meta: FieldArrayMeta = {
+    error: undefined,
+    hasError: false,
+    isDirty: initialValues?.join(",") !== items.map(item => item.meta.value).join(","),
+    isEmpty: items.length === 0,
+    isFocussed: false,
+    wasTouched: false
+  }
+  for (const item of items) {
+    const {
+      error,
+      hasError,
+      isDirty,
+      isFocussed,
+      wasTouched
+    } = item.meta
+
+    if (meta.error == null && error != null) {
+      meta.error = error
+    }
+
+    if (hasError === true) {
+      meta.hasError = true
+    }
+
+    if (isDirty === true) {
+      meta.isDirty = true
+    }
+
+    if (isFocussed === true) {
+      meta.isFocussed = true
+    }
+
+    if (wasTouched === true) {
+      meta.wasTouched = true
+    }
+  }
+  return meta
+}
 
 export const squashArrayActions = <A extends FieldArrayActions<any>[]>(
   actions: A
@@ -25,24 +69,27 @@ export const squashArrayActions = <A extends FieldArrayActions<any>[]>(
  */
 export const groupFieldArrays = <
   O extends {
-    [key: string]: [FieldArrayData<any, any>[], FieldArrayActions<any>];
+    [key: string]: [FieldArrayData<any, any>[], FieldArrayMeta, FieldArrayActions<any>];
   },
   K extends keyof O
 >(
   groups: O
 ) => {
   const array = Object.keys(groups).map((k) => groups[k])[0][0];
+  const metas = Object.keys(groups).map((k) => ({ meta: groups[k][1] }))
 
   const _actions: FieldArrayActions<any>[] = [];
-  const keys = Object.keys(groups);
-  keys.forEach((key) => _actions.push(groups[key][1]));
+  const fieldKeys = Object.keys(groups);
+  fieldKeys.forEach((key) => _actions.push(groups[key][2]));
 
   const actions = {
     ...squashArrayActions(_actions),
     removeItem: (index: number) => {
-      keys.forEach((key) => groups[key][0][index]?.actions?.remove());
+      fieldKeys.forEach((key) => groups[key][0][index]?.actions?.remove());
     },
   };
+
+  const meta = reduceArrayMeta(metas)
 
   const data = array.map((_, i) => {
     type FieldArrayItemData = {
@@ -53,11 +100,11 @@ export const groupFieldArrays = <
     }
     const obj = {} as FieldArrayItemData;
     let compositeKey = ""
-    keys.forEach((key) => {
-      obj[key as K] = groups[key][0][i];
-      compositeKey += obj[key as K].props.key
+    fieldKeys.forEach((fieldKey) => {
+      obj[fieldKey as K] = groups[fieldKey][0][i];
+      compositeKey += obj[fieldKey as K].props.key
     });
     return { ...obj, key: compositeKey };
   });
-  return [data, actions] as const;
+  return [data, meta, actions] as const;
 };

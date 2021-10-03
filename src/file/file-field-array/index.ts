@@ -3,6 +3,7 @@ import {
   FieldArrayActions,
   FieldArrayData,
   FieldArrayOptions,
+  FieldArrayMeta
 } from "../../base/base-field-array/types";
 import { FieldMetaWithoutError } from "../../base/base-field/types";
 import { FileFieldProps } from "../file-field";
@@ -16,7 +17,7 @@ export type FileFieldArrayProps = Omit<
 
 export function useFileFieldArray(
   options?: FieldArrayOptions<FileList | undefined>
-): [FileFieldArrayProps[], FieldArrayActions<FileList>] {
+): [FileFieldArrayProps[], FieldArrayMeta, FieldArrayActions<FileList>] {
   const checkForErrors = (
     itemMeta: FieldMetaWithoutError<FileList>,
     allMeta: FieldMetaWithoutError<FileList>[]
@@ -41,7 +42,7 @@ export function useFileFieldArray(
   const initialValue = options?.initialValue;
   const isRequired = Boolean(options?.isRequired);
 
-  const [_data, actions] = useBaseFieldArray({
+  const [_data, meta, actions] = useBaseFieldArray({
     checkForErrors,
     extractValue,
     checkIfEmpty,
@@ -57,5 +58,5 @@ export function useFileFieldArray(
       props: { ...restProps, type: "file" },
     };
   });
-  return [data, actions];
+  return [data, meta, actions];
 }

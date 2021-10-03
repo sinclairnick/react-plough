@@ -25,7 +25,8 @@ export type ExtractTypeString<T> = T extends boolean
 
 export type FieldArrayDataType<T> = {
   data: ReturnType<ExtractArrayHookType<T>>["0"];
-  arrayActions: ReturnType<ExtractArrayHookType<T>>["1"];
+  arrayMeta: ReturnType<ExtractArrayHookType<T>>["1"];
+  arrayActions: ReturnType<ExtractArrayHookType<T>>["2"];
 };
 
 export type FieldDataType<T> = {
@@ -49,7 +50,7 @@ export type InitialValueType =
   | boolean[]
   | never[]
   | {
-      value: string | boolean | string[] | boolean[];
-    }
+    value: string | boolean | string[] | boolean[];
+  }
   | { value: never[]; type?: "binary" | "file" }
   | { type?: "binary" | "file" };

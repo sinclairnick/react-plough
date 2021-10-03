@@ -3,12 +3,13 @@ import {
   FieldArrayActions,
   FieldArrayData,
   FieldArrayOptions,
+  FieldArrayMeta
 } from "../../base/base-field-array/types";
 import { FieldMetaWithoutError } from "../../base/base-field/types";
 
 export function useTextFieldArray(
   options?: FieldArrayOptions<string>
-): [FieldArrayData<string, HTMLInputElement>[], FieldArrayActions<string>] {
+): [FieldArrayData<string, HTMLInputElement>[], FieldArrayMeta, FieldArrayActions<string>] {
   const checkForErrors = (
     itemMeta: FieldMetaWithoutError<string>,
     allMeta: FieldMetaWithoutError<string>[]

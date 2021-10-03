@@ -59,39 +59,39 @@ export function createForm<
         hooks[hookKey] = (
           ...params: Parameters<typeof useBinaryFieldArray>
         ) => {
-          const [data, arrayActions] = useBinaryFieldArray({
+          const [data, arrayMeta, arrayActions] = useBinaryFieldArray({
             initialValue: value as any,
             ...params[0],
           });
 
-          formData[key] = { data, arrayActions };
+          formData[key] = { data, arrayMeta, arrayActions };
 
-          return [data, arrayActions] as const;
+          return [data, arrayMeta, arrayActions] as const;
         };
         continue;
       }
       if (type === "file") {
         hooks[hookKey] = (...params: Parameters<typeof useFileFieldArray>) => {
-          const [data, arrayActions] = useFileFieldArray({
+          const [data, arrayMeta, arrayActions] = useFileFieldArray({
             initialValue: value as any,
             ...params[0],
           });
 
-          formData[key] = { data, arrayActions };
+          formData[key] = { data, arrayMeta, arrayActions };
 
-          return [data, arrayActions];
+          return [data, arrayMeta, arrayActions];
         };
         continue;
       }
       hooks[hookKey] = (...params: Parameters<typeof useTextFieldArray>) => {
-        const [data, arrayActions] = useTextFieldArray({
+        const [data, arrayMeta, arrayActions] = useTextFieldArray({
           initialValue: value as any,
           ...params[0],
         });
 
-        formData[key] = { data, arrayActions };
+        formData[key] = { data, arrayMeta, arrayActions };
 
-        return [data, arrayActions];
+        return [data, arrayMeta, arrayActions];
       };
       continue;
     }
@@ -164,7 +164,31 @@ export function createForm<
       }
       metas[key] = data?.["data"]?.map((d) => d["meta"]);
     }
-    return composeForm(metas);
+    const [formValues, formMeta] = composeForm(metas);
+
+    const meta = {
+      ...formMeta,
+    }
+    for (const key in formData) {
+      const data = formData[key as K & string];
+      if ("arrayMeta" in data) {
+        const arrayMeta = data["arrayMeta"]
+        if (arrayMeta.hasError) {
+          meta.hasErrors = arrayMeta.hasError
+        }
+        if (arrayMeta.isDirty) {
+          meta.isDirty = arrayMeta.isDirty
+        }
+        if (arrayMeta.isFocussed) {
+          meta.isFocussed = arrayMeta.isFocussed
+        }
+        if (arrayMeta.wasTouched) {
+          meta.wasTouched = arrayMeta.wasTouched
+        }
+      }
+    }
+
+    return [formValues, meta] as const
   };
 
   const reset = () => {

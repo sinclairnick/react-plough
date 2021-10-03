@@ -18,14 +18,17 @@ export const reducer =
       }
       switch (action.type) {
         case "APPEND_ITEM":
-          return [...state, defaultValues,];
+          return [...state, { ...defaultValues, wasTouched: true },];
 
         case "INSERT_ITEM":
           const [before, after] = [
             state.slice(0, action.index),
             state.slice(action.index)
           ]
-          const newItem = { ...defaultValues, ...(action.data ?? {}) }
+          const newItem: State<T>[number] = {
+            ...defaultValues,
+            ...(action.data ?? {})
+          }
           return [
             ...before,
             newItem,

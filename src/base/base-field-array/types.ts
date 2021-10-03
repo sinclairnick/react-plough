@@ -66,3 +66,5 @@ export type FieldArrayData<T, E> = {
   meta: FieldMeta<T>;
   actions: FieldArrayItemActions<T>;
 };
+
+export type FieldArrayMeta = Omit<FieldMeta<any>, "value" | "isRequired">

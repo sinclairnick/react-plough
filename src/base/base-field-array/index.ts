@@ -1,4 +1,5 @@
 import { ChangeEvent, Reducer, useEffect, useMemo, useReducer } from "react";
+import { reduceArrayMeta } from "../../util/arrays.util";
 import { generateId, reducer } from "./constants";
 import {
   Action,
@@ -6,11 +7,12 @@ import {
   FieldArrayActions,
   State,
   FieldArrayData,
+  FieldArrayMeta,
 } from "./types";
 
 export function useBaseFieldArray<T, E = HTMLInputElement>(
   options: BaseFieldArrayOptions<T, E>
-): [FieldArrayData<T, E>[], FieldArrayActions<T>] {
+): [FieldArrayData<T, E>[], FieldArrayMeta, FieldArrayActions<T>] {
   const {
     checkForErrors,
     extractValue,
@@ -193,5 +195,8 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
       reset: () => reset(i),
     },
   }));
-  return [items, arrayActions];
+
+  const arrayMeta = reduceArrayMeta(items, initialValues)
+
+  return [items, arrayMeta, arrayActions];
 }
