@@ -52,13 +52,11 @@ export const squashArrayActions = <A extends FieldArrayActions<any>[]>(
 ) => {
   const appendItem = () => actions.forEach((a) => a.appendItem());
   const resetAll = () => actions.forEach((a) => a.resetAll());
-  const insertItem = (index: number) => actions.forEach((a) => a.insertItem(index))
   const removeItem = (index: number) => actions.forEach((a) => a.removeItem(index))
 
   return {
     appendItem,
     resetAll,
-    insertItem,
     removeItem
   };
 };
@@ -78,12 +76,14 @@ export const groupFieldArrays = <
   const array = Object.keys(groups).map((k) => groups[k])[0][0];
   const metas = Object.keys(groups).map((k) => ({ meta: groups[k][1] }))
 
-  const _actions: FieldArrayActions<any>[] = [];
-  const fieldKeys = Object.keys(groups);
-  fieldKeys.forEach((key) => _actions.push(groups[key][2]));
+  const fieldKeys = Object.keys(groups) as K[];
+  const _actions: FieldArrayActions<any>[] = fieldKeys.map((key) => groups[key][2]);
 
   const actions = {
     ...squashArrayActions(_actions),
+    insertItem: (index: number, values?: { [key in K]: O[K][0][number]["meta"]["value"] | undefined }) => {
+      fieldKeys.forEach((key) => groups[key][2].insertItem(index, values?.[key]))
+    },
     removeItem: (index: number) => {
       fieldKeys.forEach((key) => groups[key][0][index]?.actions?.remove());
     },
