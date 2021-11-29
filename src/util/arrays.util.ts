@@ -53,7 +53,7 @@ export const squashArrayActions = <A extends FieldArrayActions<any>[]>(
   const appendItem = () => actions.forEach((a) => a.appendItem());
   const resetAll = () => actions.forEach((a) => a.resetAll());
   const removeItem = (index: number) => actions.forEach((a) => a.removeItem(index))
-  const validate = () => actions.forEach((a) => a.appendItem())
+  const validate = () => actions.forEach((a) => a.validate())
 
   return {
     appendItem,
