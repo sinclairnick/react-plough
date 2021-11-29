@@ -1,6 +1,6 @@
 {
     "name": "react-plough",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "tend your fields with react plough",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "scripts": {
         "prebuild": "rimraf dist",
         "check": "tsc --noEmit",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "predocs": "npm run build",
         "docs": "typedoc src/index.ts --out docs --theme minimal",
         "build": "tsc",
@@ -32,10 +32,13 @@
         "react": "^17.0.2"
     },
     "devDependencies": {
+        "@types/jest": "^27.0.3",
         "@types/react": "^17.0.4",
+        "jest": "^27.3.1",
         "react": "^17.0.2",
         "react-plough": "^0.0.19",
         "rimraf": "^3.0.2",
+        "ts-jest": "^27.0.7",
         "typedoc": "^0.21.9",
         "typescript": "^4.3.5"
     }
