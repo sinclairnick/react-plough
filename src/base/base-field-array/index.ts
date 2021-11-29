@@ -53,7 +53,7 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
 
   // Subscribe to initial value changes
   useEffect(() => {
-    dispatch({ type: "RESET_ALL", values: initialValues })
+    dispatch({ type: "RESET_ALL", values: initialValues, })
   }, [JSON.stringify(initialValues)])
 
   const required = Boolean(isRequired);
@@ -80,9 +80,9 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     });
   };
 
-  const onBlur = async (index: number) => {
+  const onBlur = (index: number) => {
     const meta = items[index].meta;
-    const _error = await checkForErrors(
+    const _error = checkForErrors(
       { ...meta, wasTouched: true, isFocussed: false },
       items.map((item) => item.meta)
     );
@@ -93,10 +93,10 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     });
   };
 
-  const onFocus = async (index: number) => {
+  const onFocus = (index: number) => {
     const meta = items[index].meta;
-    const _error = await checkForErrors(
-      { ...meta, wasTouched: true, isFocussed: false },
+    const _error = checkForErrors(
+      { ...meta, isFocussed: true },
       items.map((item) => item.meta)
     );
     dispatch({
@@ -136,11 +136,24 @@ export function useBaseFieldArray<T, E = HTMLInputElement>(
     })
   }
 
+  const validate = () => {
+    const allItemMeta = items.map(item => item.meta)
+    const errorUpdates = items.map(item => {
+      const error = checkForErrors(item.meta, allItemMeta)
+      return { error }
+    })
+    dispatch({
+      type: "UPDATE_ITEMS",
+      updates: errorUpdates
+    })
+  }
+
   const arrayActions: FieldArrayActions<T> = {
     removeItem,
     resetAll,
     insertItem,
     appendItem,
+    validate
   };
 
   const items: FieldArrayData<T, E>[] = state.map((item, i) => ({

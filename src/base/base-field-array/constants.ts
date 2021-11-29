@@ -5,8 +5,7 @@ export const generateId = () => {
 }
 
 // A default value is required for new inputs in the array
-export const reducer =
-  <T>(defaultValue: T) => {
+export const reducer = <T>(defaultValue: T) => {
 
     return (state: State<T>, action: Action<T>): State<T> => {
       const defaultValues: State<T>[number] = {
@@ -45,6 +44,13 @@ export const reducer =
             ...action.updates,
           };
           return values;
+        }
+
+        case "UPDATE_ITEMS": {
+          const values = [...state].map(x => {
+            return { ...x, ...action.updates }
+          })
+          return values
         }
 
         case "RESET": {

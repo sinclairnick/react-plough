@@ -27,6 +27,7 @@ export type FieldArrayActions<T> = {
   removeItem: (index: number) => void;
   appendItem: () => void;
   resetAll: (toValues?: T[]) => void;
+  validate: () => void
 };
 
 export type State<T> = {
@@ -40,6 +41,7 @@ export type State<T> = {
 export type Action<T> =
   | { type: "REMOVE_ITEM"; index: number }
   | { type: "UPDATE_ITEM"; index: number; updates: Partial<State<T>[number]> }
+  | { type: "UPDATE_ITEMS", updates: Partial<State<T>[number]>[] }
   | { type: "APPEND_ITEM" }
   | { type: "INSERT_ITEM", index: number, data?: Partial<State<T>[number]> }
   | { type: "RESET"; index: number; value: T }
