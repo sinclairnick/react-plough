@@ -1,3 +1,5 @@
+> 🚨 This project has been archived. I recommend using [React Hook Form](https://react-hook-form.com/) instead.
+
 <h1 align="center">React Plough 👨‍🌾</h1>
 
 <p align="center">
